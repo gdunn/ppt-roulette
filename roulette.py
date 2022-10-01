@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 from pptx import Presentation
-from pptx.util import Inches
 
 
 presentation = Presentation('template_presentation.pptx')
@@ -14,5 +13,9 @@ second_slide = presentation.slides.add_slide(blank_layout)
 
 first_slide.shapes.title.text = "Random topic title!"
 first_slide.placeholders[1].text = "Powerpoint Roulette"
+
+# Will strecth or shrink the image to the slide size
+pic = second_slide.shapes.add_picture('images/flightteam.jpg', 0, 0,
+                                      presentation.slide_width, presentation.slide_height)
 
 presentation.save("random_presentation.pptx")
