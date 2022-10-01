@@ -3,10 +3,13 @@
 from pptx import Presentation
 from glob import glob
 import random
+import sys
 
 
 SLIDES_COUNT = 10
 
+presentation_title = sys.argv[1]
+print(f"Generating presentation for {presentation_title}")
 
 presentation = Presentation('template_presentation.pptx')
 
@@ -16,7 +19,7 @@ blank_layout = presentation.slide_layouts[6]
 first_slide = presentation.slides.add_slide(title_layout)
 
 
-first_slide.shapes.title.text = "Random topic title!"
+first_slide.shapes.title.text = presentation_title
 first_slide.placeholders[1].text = "Powerpoint Roulette"
 
 # Select a random images
@@ -32,7 +35,7 @@ for image_filename in image_filenames:
         presentation.slide_width, presentation.slide_height)
 
 last_slide = presentation.slides.add_slide(title_layout)
-last_slide.shapes.title.text = "Random topic title!"
+last_slide.shapes.title.text = presentation_title
 last_slide.placeholders[1].text = "End. Well done!"
 
 presentation.save("random_presentation.pptx")
