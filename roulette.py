@@ -4,9 +4,19 @@ from pptx import Presentation
 from glob import glob
 import random
 import sys
+from re import sub
 
 
 SLIDES_COUNT = 10
+
+
+def snake_case(s):
+    s = sub(r'[^a-zA-Z0-9]+', '_', s)
+    return '_'.join(
+        sub('([A-Z][a-z]+)', r' \1',
+        sub('([A-Z]+)', r' \1',
+        s.replace('-', ' '))).split()).lower()
+
 
 presentation_title = sys.argv[1]
 print(f"Generating presentation for {presentation_title}")
@@ -38,4 +48,5 @@ last_slide = presentation.slides.add_slide(title_layout)
 last_slide.shapes.title.text = presentation_title
 last_slide.placeholders[1].text = "End. Well done!"
 
-presentation.save("random_presentation.pptx")
+filename = snake_case(presentation_title) + "_presentation.pptx"
+presentation.save(filename)
